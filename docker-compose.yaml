@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fin_api
+    volumes:
+      - .pgdata:/var/lib/postgresql/data
+
+  fin_api:
+    stdin_open: true
+    command: wait-for db:5432 -t 40 -- ./start.sh
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fin_api
+    depends_on:
+      - postgres
+    ports:
+      - "3333:3333"
+    restart: always
+
+volumes:
+  .pgdata:
