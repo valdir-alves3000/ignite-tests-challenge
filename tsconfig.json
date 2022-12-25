@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "rootDir": "./",
+    "rootDir": ".",
     "baseUrl": "./src",
 
     "esModuleInterop": true,
@@ -12,7 +12,11 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "paths": {
-      "@modules/*": ["modules/*"]
+      "@database/*": ["database/*"],
+      "@config/*": ["config/*"],
+      "@modules/*": ["modules/*"],
+      "@shared/*": ["shared/*"],
+      "@app": ["app"]
     }
   }
 }

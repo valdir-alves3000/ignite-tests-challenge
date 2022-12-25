@@ -1,11 +1,10 @@
+import { app } from "@app";
+import createConnection from "@database/index";
 import request from "supertest";
 import { Connection } from "typeorm";
-import { app } from "../../../../app";
-import createConnection from "../../../../database";
-import { ICreateUserDTO } from "../createUser/ICreateUserDTO";
+import { makeUser } from "../../../../../test/factories/user-factory";
 
 let connection: Connection;
-
 describe("Show User Profile Controller", () => {
   beforeAll(async () => {
     connection = await createConnection();
@@ -18,11 +17,7 @@ describe("Show User Profile Controller", () => {
   });
 
   it("should be able get users", async () => {
-    const user: ICreateUserDTO = {
-      name: "Supertest",
-      email: "email@supertest.com",
-      password: "password",
-    };
+    const user = makeUser({});
 
     await request(app).post("/api/v1/users").send(user);
 

@@ -1,5 +1,5 @@
 import { Config } from "jest";
-import { pathsToModuleNameMapper } from "ts-jest";
+import { pathsToModuleNameMapper } from "ts-jest/";
 import { compilerOptions } from "./tsconfig.json";
 
 const config: Config = {
@@ -14,9 +14,10 @@ const config: Config = {
   coverageDirectory: "../coverage",
   testEnvironment: "node",
   bail: 1,
+  preset: "ts-jest",
 
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: "<rootDir>",
+    prefix: "<rootDir>/src",
   }),
 };
 

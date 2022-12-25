@@ -1,7 +1,7 @@
-import { UsersRepositoryInMemory } from "../../../../config/repositories/in-memory/users-repository-in-memory";
-import { AppError } from "../../../../shared/errors/AppError";
+import { UsersRepositoryInMemory } from "@config/repositories/in-memory/users-repository-in-memory";
+import { AppError } from "@shared/errors/AppError";
+import { makeUser } from "../../../../../test/factories/user-factory";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
-import { ICreateUserDTO } from "../createUser/ICreateUserDTO";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
 let authenticateUserUseCase: AuthenticateUserUseCase;
@@ -18,11 +18,7 @@ describe("Authenticate User", () => {
   });
 
   it("should be able to authenticate a user", async () => {
-    const user: ICreateUserDTO = {
-      email: "valdir@alves.dev",
-      password: "1234",
-      name: "Valdir",
-    };
+    const user = makeUser({});
     await createUserUseCase.execute(user);
 
     const response = await authenticateUserUseCase.execute({
@@ -44,11 +40,7 @@ describe("Authenticate User", () => {
 
   it("should not be able to  authenticate with incorret password", () => {
     expect(async () => {
-      const user: ICreateUserDTO = {
-        email: "valdir@alves.dev",
-        password: "1234",
-        name: "Valdir",
-      };
+      const user = makeUser({});
 
       await createUserUseCase.execute(user);
 

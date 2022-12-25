@@ -1,8 +1,8 @@
 import { randomUUID } from "crypto";
+import { makeUser } from "../../../../../test/factories/user-factory";
 import { UsersRepositoryInMemory } from "../../../../config/repositories/in-memory/users-repository-in-memory";
 import { AppError } from "../../../../shared/errors/AppError";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
-import { ICreateUserDTO } from "../createUser/ICreateUserDTO";
 import { ShowUserProfileUseCase } from "./ShowUserProfileUseCase";
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
@@ -19,11 +19,7 @@ describe("Show User profile", () => {
   });
 
   it("should be able get user by id", async () => {
-    const user: ICreateUserDTO = {
-      email: "test@alves.dev",
-      password: "1234",
-      name: "TEST",
-    };
+    const user = makeUser({});
 
     const createUser = await createUserUseCase.execute(user);
     const response = await showUserProfileUseCase.execute(createUser.id);
